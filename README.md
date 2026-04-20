@@ -80,12 +80,3 @@ Run:
 
 ---
 
-## Future Improvements
-
-* Append-only file saving
-* Multi-user support (separate files per user)
-* Better input validation
-* Sorting by other parameters
-* Monthly summaries / analytics
-
----
