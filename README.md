@@ -56,7 +56,7 @@ The project focuses on practicing core C++ concepts like OOP, STL, file handling
   * last 5 transactions
   * top 5 highest expenses (using min-heap)
 * Data is saved in a CSV file and loaded at program start
-
+* Expense can be deleted by ID
 ---
 
 ## How to Run
@@ -75,7 +75,6 @@ Run:
 
 * No input validation (wrong formats may break logic)
 * CSV parsing assumes clean data (no commas in text)
-* Overwrites file instead of appending (can be improved)
 * No user authentication system
 
 ---
