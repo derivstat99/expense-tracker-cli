@@ -6,7 +6,7 @@
 class Tracker
 {
 private:
-    double total;
+    double total = 0.0;
     std::vector<Expense> expenses;
     std::vector<Expense> lastFive;
     std::priority_queue<std::pair<double, Expense>, std::vector<std::pair<double, Expense>>, std::greater<>> topFive;
@@ -22,4 +22,7 @@ public:
     void sortByDate();
     void showTopFive();
     void showLastFive() const;
+    void appendToFile(const Expense &) const;
+    void deleteById(int id);
+    void rebuildState();
 };

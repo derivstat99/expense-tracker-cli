@@ -37,6 +37,18 @@ void Tracker::saveToFile() const
     }
 }
 
+void Tracker::appendToFile(const Expense &e) const
+{
+    std::ofstream file("expenses.csv", std::ios::app);
+
+    file << e.getName() << ","
+         << e.getPrice() << ","
+         << e.typeString(e.getCategory()) << ","
+         << e.payString(e.getPaymentMode()) << ","
+         << e.getDate() << ","
+         << e.getNote() << "\n";
+}
+
 void Tracker::loadFromFile()
 {
     std::ifstream file("expenses.csv");
@@ -158,5 +170,42 @@ void Tracker::showTopFive()
     {
         temp.top().second.display();
         temp.pop();
+    }
+}
+
+void Tracker::deleteById(int id)
+{
+    expenses.erase(
+        std::remove_if(expenses.begin(), expenses.end(),
+                       [id](const Expense &e)
+                       { return e.getId() == id; }),
+        expenses.end());
+
+    rebuildState();
+    saveToFile();
+}
+
+void Tracker::rebuildState()
+{
+    lastFive.clear();
+    while (!topFive.empty())
+    {
+        topFive.pop();
+    }
+    for (const auto &e : expenses)
+    {
+        total += e.getPrice();
+
+        lastFive.push_back(e);
+        if (lastFive.size() > 5)
+        {
+            lastFive.erase(lastFive.begin());
+        }
+
+        topFive.push({e.getPrice(), e});
+        if (topFive.size() > 5)
+        {
+            topFive.pop();
+        }
     }
 }

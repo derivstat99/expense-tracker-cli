@@ -10,7 +10,7 @@ int main()
 
     while (true)
     {
-        std::cout << "\n1. Add Expense\n2. View Expenses\n3. Show Total\n4. Exit\n5.Filter by Category\n6.Filter by Date Range\n7.Sort by Date\n";
+        std::cout << "\n1. Add Expense\n2. View Expenses\n3. Show Total\n4. Exit\n5.Filter by Category\n6.Filter by Date Range\n7.Sort by Date\n8.Delete By ID\n";
         std::cout << "Enter choice: ";
         std::cin >> choice;
 
@@ -21,6 +21,7 @@ int main()
             int catChoice, payChoice;
 
             std::cout << "Enter name: ";
+            std::cin.ignore();
             getline(std::cin, name);
 
             std::cout << "Enter amount: ";
@@ -58,7 +59,7 @@ int main()
 
             Expense e(name, category, price, paymentMode, date, note);
             tracker.addExpense(e);
-            tracker.saveToFile();
+            tracker.appendToFile(e);
         }
 
         else if (choice == 2)
@@ -68,9 +69,7 @@ int main()
 
         else if (choice == 3)
         {
-            double total = 0;
-            std::vector<Expense> temp;
-            tracker.viewExpenses();
+            std::cout << "Total Expenses: " << tracker.getAllExpenses() << "\n";
         }
 
         else if (choice == 4)
@@ -116,6 +115,15 @@ int main()
         {
             tracker.sortByDate();
             std::cout << "Sorted by latest date\n";
+        }
+
+        else if (choice == 8)
+        {
+            int cid;
+            std::cout << "Enter the Id to delete (Look up ID in View All Expenses): ";
+            std::cin >> cid;
+            tracker.deleteById(cid);
+            std::cout << "Deleted Successfully!" << "\n";
         }
     }
 

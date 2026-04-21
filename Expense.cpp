@@ -1,9 +1,11 @@
 #include "Expense.h"
 #include <iostream>
 
+int Expense::nextId = 1;
+
 Expense::Expense(std::string name, Category category, double price,
                  PaymentMode paymentMode, std::string date, std::string note)
-    : name(name), category(category), price(price),
+    : id(nextId++), name(name), category(category), price(price),
       paymentMode(paymentMode), date(date), note(note) {}
 
 std::string Expense::getName() const { return name; }
@@ -35,10 +37,16 @@ std::string Expense::typeString(Category c) const
 
 void Expense::display() const
 {
-    std::cout << name << " | "
+    std::cout << id << " | "
+              << name << " | "
               << price << " | "
               << typeString(category) << " | "
               << payString(paymentMode) << " | "
               << date << " | "
               << note << std::endl;
+}
+
+int Expense::getId() const
+{
+    return id;
 }

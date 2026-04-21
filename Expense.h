@@ -18,6 +18,8 @@ enum class PaymentMode
 class Expense
 {
 private:
+    int id;
+    static int nextId;
     std::string name;
     Category category;
     double price;
@@ -41,4 +43,5 @@ public:
     std::string typeString(Category c) const;
 
     void display() const;
+    int getId() const;
 };
